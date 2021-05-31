@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 textract = "*"
+pdfplumber = "*"
 
 [dev-packages]
 
