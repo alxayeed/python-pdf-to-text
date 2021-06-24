@@ -36,6 +36,6 @@ if __name__ == '__main__':
     text = use_texttract(file_path)
 
     current_directory = os.path.abspath(os.curdir)
-    with open(current_directory+'/file/output.docx', 'w') as f:
+    with open(current_directory+'/file/output.txt', 'w') as f:
 
         f.write(text)
