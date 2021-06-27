@@ -6,8 +6,9 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-textract = "1.6.3"
-pdfplumber = "0.5.28"
+textract = "*"
+pdfplumber = "*"
+camelot-py = "*"
 
 [requires]
 python_version = "3.8"
