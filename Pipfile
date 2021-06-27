@@ -9,6 +9,7 @@ verify_ssl = true
 textract = "*"
 pdfplumber = "*"
 camelot-py = "*"
+"camelot-py[cv]" = "*"
 
 [requires]
 python_version = "3.8"
