@@ -3,7 +3,7 @@ import urllib.request
 import os
 import pdfplumber
 # import camelot
-from tabula import read_pdf
+import tabula
 from tabulate import tabulate
 import camelot
 import re
