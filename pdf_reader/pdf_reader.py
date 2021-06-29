@@ -58,8 +58,10 @@ def pdf_to_text(file_path):
     return text
 
 
-def get_sections_text(text):
+def get_sections_text(pdf_file):
     """Split the whole text of pdf into 3 main sections"""
+    text = pdf_to_text(pdf_file)
+
     header_one = "1. Recommendations for update of the product information"
     header_two = "2. Recommendations for submission of supplementary"
     header_three = "3. Other recommendations"
@@ -82,7 +84,7 @@ def extract_table_data(pdf_file, page):
     return tables[0].df
 
 
-def get_subsection_text(sub_section, keyword, pdf_link):
+def get_subsection_text(sub_section, keyword, pdf_path):
     """Splits a section into it's subsection and returns text"""
     sub_header_extra_lines = "".join(sub_section.splitlines()[:5])
     sub_header = sub_header_extra_lines.split("Authorisation procedure")[0]
@@ -96,7 +98,7 @@ def get_subsection_text(sub_section, keyword, pdf_link):
         page_num_regex = re.findall(r'Page \d+/\d+', sub_section)
         page_num = "".join(page_num_regex).split(
             " ")[1][0]  # gives precise page number eg -4
-        table_data = extract_table_data(pdf_link, page_num)
+        table_data = extract_table_data(pdf_path, page_num)
         # print(table_data)
 
         return f"{sub_header} \n{table_data} \n{sub_section[recommendation_index:]}"
@@ -106,7 +108,7 @@ def get_subsection_text(sub_section, keyword, pdf_link):
 
 def get_content(pdf_path, search_term):
     text = pdf_to_text(pdf_path)
-    section_one, section_two, section_three = get_sections_text(text)
+    section_one, section_two, section_three = get_sections_text(pdf_path)
 
     section_one_result = ""
     for i in range(1, 10):
