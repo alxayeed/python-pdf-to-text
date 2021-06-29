@@ -2,11 +2,12 @@ import textract
 import urllib.request
 import os
 import pdfplumber
-# import camelot
 import tabula
 from tabulate import tabulate
 import camelot
 import re
+
+from input_output import links
 
 
 def use_texttract(file_path):
@@ -130,10 +131,9 @@ def get_content(pdf_path, search_term):
 
 
 if __name__ == '__main__':
-    path = 'https://www.ema.europa.eu/en/documents/prac-recommendation/' \
-        'prac-recommendations-signals-adopted-8-11-march-2021-prac-meeting_en.pdf'
+    path = links['small_pdf']
 
-    search_term = "Trastuzumab emtansine"
+    search_term = "Anakinra"
     text = get_content(path, search_term)
     print(text)
 
