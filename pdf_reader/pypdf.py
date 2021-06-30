@@ -46,10 +46,28 @@ def rotate_pdf(original_pdf, rotated_pdf_name, rotation):
     pdf_file_obj.close()
 
 
+def merge_pdf(pdf_list, output_file):
+    pdf_merger_obj = PyPDF2.PdfFileMerger()
+
+    # appending pdfs one by one
+    for pdf in pdf_list:
+        pdf_merger_obj.append(pdf)
+
+    # writing merged into a new file
+    with open(output_file, 'wb') as f:
+        pdf_merger_obj.write(f)
+
+
 if __name__ == '__main__':
     file_path = 'file/prac.pdf'
     # extract_text_from_pdf(file_path)
 
-    new_file = 'file/rotated_prac.pdf'
+    # rotate
+    # new_file = 'file/rotated_prac.pdf'
+    # rotate_pdf(file_path, new_file, 180)
 
-    rotate_pdf(file_path, new_file, 180)
+    # merge
+    pdf_list = ['file/table.pdf', 'file/tb1.pdf']
+    output = 'file/merged_pdf.pdf'
+
+    merge_pdf(pdf_list, output)
