@@ -6,6 +6,7 @@ import tabula
 from tabulate import tabulate
 import camelot
 import re
+from pdf2docx import Converter, parse
 
 from input_output import links
 
@@ -130,11 +131,31 @@ def get_content(pdf_path, search_term):
     return section_one_result
 
 
+def read_table(file, page_no):
+    current_directory = os.path.abspath(os.curdir)
+    pdf = current_directory + '/temp.pdf'
+
+    urllib.request.urlretrieve(file, pdf)
+
+    cv = Converter(pdf)
+    # page_no = page_no - 1
+    tables = cv.extract_tables(start=page_no-1)
+    cv.close()
+    os.remove(pdf)
+
+    for table in tables[0]:
+        print(table)
+        print()
+
+
 if __name__ == '__main__':
-    path = links['small_pdf']
+    path = links['1']
 
     search_term = "Anakinra"
-    text = get_content(path, search_term)
-    print(text)
+    # text = get_content(path, search_term)
+    # print(text)
 
     # extract_table(path)
+
+    # read table
+    read_table(links['5'], page_no=5)
