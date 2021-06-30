@@ -7,6 +7,7 @@ from tabulate import tabulate
 import camelot
 import re
 from pdf2docx import Converter, parse
+import pandas as pd
 
 from input_output import links
 
@@ -131,6 +132,22 @@ def get_content(pdf_path, search_term):
     return section_one_result
 
 
+def convert_to_dataframe(data_list):
+    data = {'INN': [data_list[0]],
+            'Signal (EPITT NO)': [data_list[1]],
+            'PRAC Rapporteur': [data_list[2]],
+            'Action for MAH': [data_list[3]],
+            'MAH': [data_list[4]]
+            }
+
+    columns = ['INN', 'Signal (EPITT NO)',
+               'PRAC Rapporteur', 'Action for MAH', 'MAH']
+
+    df = pd.DataFrame(data, columns=columns)
+
+    return data
+
+
 def read_table(file, page_no):
     current_directory = os.path.abspath(os.curdir)
     pdf = current_directory + '/temp.pdf'
@@ -148,7 +165,8 @@ def read_table(file, page_no):
 
     for table in tables[0]:
         if term in table[0]:
-            print(table)
+            data_f = convert_to_dataframe(table)
+            print(data_f)
 
 
 if __name__ == '__main__':
