@@ -132,6 +132,15 @@ def get_content(pdf_path, search_term):
     return section_one_result
 
 
+def remove_newlines(data_list):
+    new_data_list = []
+    for data in data_list:
+        new_data = data.replace('\n', '')
+        new_data_list.append(new_data.strip())
+
+    return new_data_list
+
+
 def convert_to_dataframe(data_list):
     data = {'INN': [data_list[0]],
             'Signal (EPITT NO)': [data_list[1]],
@@ -165,7 +174,8 @@ def read_table(file, page_no):
 
     for table in tables[0]:
         if term in table[0]:
-            data_f = convert_to_dataframe(table)
+            new_data_list = remove_newlines(table)
+            data_f = convert_to_dataframe(new_data_list)
             print(data_f)
 
 
