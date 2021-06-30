@@ -141,11 +141,14 @@ def read_table(file, page_no):
     # page_no = page_no - 1
     tables = cv.extract_tables(start=page_no-1)
     cv.close()
-    os.remove(pdf)
+    # os.remove(pdf)
+    # print(f'Total tables : {tables}')
+
+    term = 'Ceftriaxone'
 
     for table in tables[0]:
-        print(table)
-        print()
+        if term in table[0]:
+            print(table)
 
 
 if __name__ == '__main__':
@@ -158,4 +161,4 @@ if __name__ == '__main__':
     # extract_table(path)
 
     # read table
-    read_table(links['5'], page_no=5)
+    read_table(links['5'], page_no=4)
