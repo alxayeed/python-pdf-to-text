@@ -1,5 +1,6 @@
 import PyPDF2
 from input_output import links
+from pdf2docx import Converter, parse
 
 
 def get_pdf_reader_obj(pdf_file):
@@ -58,6 +59,24 @@ def merge_pdf(pdf_list, output_file):
         pdf_merger_obj.write(f)
 
 
+def split_pdf():
+    pass
+
+
+def add_watermark():
+    pass
+
+
+def read_table(file):
+    cv = Converter(file)
+    tables = cv.extract_tables(start=14)
+    cv.close()
+
+    for table in tables[0]:
+        print(table)
+        print()
+
+
 if __name__ == '__main__':
     file_path = 'file/prac.pdf'
     # extract_text_from_pdf(file_path)
@@ -70,4 +89,7 @@ if __name__ == '__main__':
     pdf_list = ['file/table.pdf', 'file/tb1.pdf']
     output = 'file/merged_pdf.pdf'
 
-    merge_pdf(pdf_list, output)
+    # merge_pdf(pdf_list, output)
+
+    # read table
+    read_table(file_path)
