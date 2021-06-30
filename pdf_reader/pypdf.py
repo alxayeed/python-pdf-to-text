@@ -23,6 +23,33 @@ def extract_text_from_pdf(pdf_file):
     pdf_file_obj.close()
 
 
+def rotate_pdf(original_pdf, rotated_pdf_name, rotation):
+    pdf_reader, pdf_file_obj = get_pdf_reader_obj(original_pdf)
+
+    # creating pdf writer object
+    pdf_writer = PyPDF2.PdfFileWriter()
+
+    # rotate all pages
+    for page in range(pdf_reader.numPages):
+        # creating rotated page object
+        page_obj = pdf_reader.getPage(page)
+        page_obj.rotateClockwise(rotation)
+
+        # adding rotated page to pdf writer
+        pdf_writer.addPage(page_obj)
+
+    # new pdf file obj
+    new_file = open(rotated_pdf_name, 'wb')
+    pdf_writer.write(new_file)
+
+    new_file.close()
+    pdf_file_obj.close()
+
+
 if __name__ == '__main__':
     file_path = 'file/prac.pdf'
-    extract_text_from_pdf(file_path)
+    # extract_text_from_pdf(file_path)
+
+    new_file = 'file/rotated_prac.pdf'
+
+    rotate_pdf(file_path, new_file, 180)
